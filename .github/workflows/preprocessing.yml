@@ -19,15 +19,29 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install pandas numpy Sastrawi scikit-learn nltk
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy Sastrawi scikit-learn nltk
 
-      - name: Run automate script
+      - name: Verify nltk installation
         run: |
-          python -m pip show nltk
-          python preprocessing/automate_Eka-Fanya-Yohana-Dasilva.py
+          python -c "import nltk; print('NLTK installed ✅ version:', nltk.__version__)"
 
-      - name: Upload processed dataset as artifact
+      - name: Run automate preprocessing
+        run: |
+          echo "🚀 Starting automate preprocessing script..."
+          python - <<'EOF'
+          import nltk
+          for pkg in ["punkt", "stopwords"]:
+              try:
+                  nltk.data.find(f"tokenizers/{pkg}" if pkg=="punkt" else f"corpora/{pkg}")
+              except LookupError:
+                  nltk.download(pkg, quiet=True)
+          import os
+          os.system("python preprocessing/automate_Eka-Fanya-Yohana-Dasilva.py")
+          print("✅ Preprocessing completed successfully!")
+          EOF
+
+      - name: Upload processed dataset
         uses: actions/upload-artifact@v4
         with:
           name: processed-dataset
