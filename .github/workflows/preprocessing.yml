@@ -23,11 +23,11 @@ jobs:
           pip install pandas numpy Sastrawi scikit-learn
 
       - name: Run automate_Fanya.py
-        run: python preprocessing/automate_Fanya.py
+        run: |
+          python preprocessing/automate_Eka-Fanya-Yohana-Dasilva.py
 
       - name: Upload processed dataset as artifact
         uses: actions/upload-artifact@v3
         with:
           name: processed-dataset
-          path: preprocessing/bali_preprocessed.csv
-
+          path: preprocessing/namadataset_preprocessing/wisata_bali_preprocessed.csv
