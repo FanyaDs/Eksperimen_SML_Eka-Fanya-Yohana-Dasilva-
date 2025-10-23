@@ -24,9 +24,9 @@ jobs:
 
       - name: Verify nltk installation
         run: |
-          python -c "import nltk; print('NLTK installed ✅ version:', nltk.__version__)"
+          python -c "import nltk; print('✅ NLTK installed, version:', nltk.__version__)"
 
-      - name: Run automate preprocessing
+      - name: Run automate preprocessing script
         run: |
           echo "🚀 Starting automate preprocessing script..."
           python - <<'EOF'
