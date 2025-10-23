@@ -23,7 +23,9 @@ jobs:
           pip install pandas numpy Sastrawi scikit-learn nltk
 
       - name: Run automate script
-        run: python preprocessing/automate_Eka-Fanya-Yohana-Dasilva.py
+        run: |
+          python -m pip show nltk
+          python preprocessing/automate_Eka-Fanya-Yohana-Dasilva.py
 
       - name: Upload processed dataset as artifact
         uses: actions/upload-artifact@v4
