@@ -1,1 +1,33 @@
+name: Run Preprocessing Dataset
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pandas numpy Sastrawi scikit-learn
+
+      - name: Run automate_Fanya.py
+        run: python preprocessing/automate_Fanya.py
+
+      - name: Upload processed dataset as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: processed-dataset
+          path: preprocessing/bali_preprocessed.csv
 
